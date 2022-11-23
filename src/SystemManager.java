@@ -10,7 +10,9 @@ public class SystemManager {
     delete (string name) - Deletes the Directory or the File with this name
     showFileSystem() - Displays all files & directories with their hierarchical structure (a file should display all file properties and a directory should display all directory properties) */
 
-    private static final String FILE_OR_DIRECTORY_DOES_NOT_EXIST = "File or directory does not exist";
+    private static final String MSG_FILE_OR_DIRECTORY_DOES_NOT_EXIST = "File or directory does not exist";
+    private static final String MSG_FILE_MUST_HAVE_PARENT_NAME = "File must have parent name";
+    
     // singleton class systemManager
     private static SystemManager systemManager = new SystemManager();
 
@@ -26,14 +28,21 @@ public class SystemManager {
     public void addFile(String parentDirName, String fileName, int fileSize) {
         Directories parentDirectory = Directories.getDirectory(parentDirName);
         Files newFile = new Files(fileName, fileSize, new Date(System.currentTimeMillis()));
-        parentDirectory.addFile(newFile);
+        if (parentDirectory != null) {
+            parentDirectory.addFile(newFile);
+        }
+        else {
+            System.out.println(MSG_FILE_MUST_HAVE_PARENT_NAME);
+        }
     }
 
     /* Adds a new Directory under the parent Directory */
     public void addDir(String parentDirName, String dirName) {
         Directories parentDirectory = Directories.getDirectory(parentDirName);
         Directories newDirectory = new Directories(dirName, new Date(System.currentTimeMillis()));
-        parentDirectory.addDirectory(newDirectory);
+        if (parentDirectory != null) {
+            parentDirectory.addDirectory(newDirectory);
+        }
     }
 
     /* Deletes the Directory or the File with this name */
@@ -47,7 +56,7 @@ public class SystemManager {
                 if (parentDirectory.getInnerFiles().containsKey(name)) {
                     parentDirectory.removeFile(name);
                 } else {
-                    System.out.println(FILE_OR_DIRECTORY_DOES_NOT_EXIST);
+                    System.out.println(MSG_FILE_OR_DIRECTORY_DOES_NOT_EXIST);
                 }
             }
         }
