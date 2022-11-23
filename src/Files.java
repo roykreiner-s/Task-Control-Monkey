@@ -1,7 +1,7 @@
 import java.util.Date;
 
 
-public class Files {
+public class Files implements IDataHolder {
     /*  A File class has the following attributes
     ● name - up to 32 characters long
     ● size - positive long integer
@@ -34,7 +34,7 @@ public class Files {
         return this.name;
     }
 
-    public void printFile() {
+    public void print() {
         System.out.println("File name: " + this.name);
         System.out.println("File size: " + this.size);
         System.out.println("File creation date: " + this.creationDate);

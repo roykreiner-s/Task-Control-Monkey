@@ -2,52 +2,52 @@ import java.util.Scanner;
 
 public class MainClass {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         // get input from user until "stop" is entered
-        while (true){
-        
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please insert function name: ");
-        String input = scanner.nextLine();
-        
-        // if input is "addFile"
-        if (input.equals("addFile")) {
-            System.out.println("Enter parent directory name");
-            String parentDirName = scanner.nextLine();
-            System.out.println("Enter file name");
-            String fileName = scanner.nextLine();
-            System.out.println("Enter file size");
-            int fileSize = scanner.nextInt();
-            addFile(parentDirName, fileName, fileSize);
+        while (true) {
+
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Please insert function name: ");
+            String input = scanner.nextLine();
+            UserInput userInput = UserInput.valueOf(input.toUpperCase());
+
+            switch (userInput) {
+                case ADD_FILE:
+                    System.out.println("Enter parent directory name");
+                    String parentDirOfFileName = scanner.nextLine();
+                    System.out.println("Enter file name");
+                    String fileName = scanner.nextLine();
+                    System.out.println("Enter file size");
+                    int fileSize = scanner.nextInt();
+                    addFile(parentDirOfFileName, fileName, fileSize);
+                    break;
+
+                case ADD_DIR:
+                    System.out.println("Enter parent directory name");
+                    String parentDirName = scanner.nextLine();
+                    System.out.println("Enter directory name");
+                    String dirName = scanner.nextLine();
+                    addDir(parentDirName, dirName);
+                    break;
+
+                case DELETE:
+                    System.out.println("Enter file or directory name");
+                    String name = scanner.nextLine();
+                    delete(name);
+                    break;
+
+
+                case SHOW_FILE_SYSTEM:
+                    showFileSystem();
+                    break;
+
+                case STOP:
+                    scanner.close();
+                    System.exit(0);
+            }
         }
 
-        // if input is "addDir"
-        if (input.equals("addDir")) {
-            System.out.println("Enter parent directory name");
-            String parentDirName = scanner.nextLine();
-            System.out.println("Enter directory name");
-            String dirName = scanner.nextLine();
-            addDir(parentDirName, dirName);
-        }
-
-        // if input is "delete"
-        if (input.equals("delete")) {
-            System.out.println("Enter file or directory name");
-            String name = scanner.nextLine();
-            delete(name);
-        }
-
-        // if input is "showFileSystem"
-        if (input.equals("showFileSystem")) {
-            showFileSystem();
-        }
-
-        // if input is "stop"
-        if (input.equals("stop")) {
-            System.exit(0);
-        }
-    }
 
     }
 
@@ -74,6 +74,10 @@ public class MainClass {
         SystemManager systemManager = SystemManager.getInstance();
         systemManager.showFileSystem();
 
+    }
+
+    public enum UserInput {
+        ADD_FILE, ADD_DIR, DELETE, SHOW_FILE_SYSTEM, STOP
     }
 
 }

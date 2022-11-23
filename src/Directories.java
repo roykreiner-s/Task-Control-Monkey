@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class Directories {
+public class Directories implements IDataHolder {
     /* A Directory class has the following attributes
     ● name - up to 32 characters long
     ● creation date (date type)
@@ -87,18 +87,18 @@ public class Directories {
         return innerDirectories;
     }
 
-    public void printDirectory() {
+    public void print() {
         System.out.println("Directory name: " + this.name);
         System.out.println("Creation date: " + this.creationDate);
         System.out.println("Inner files: ");
-        // print inner files
+        System.out.println("{");
         for (Files innerFile : innerFiles.values()) {
-            innerFile.printFile();
+            innerFile.print();
         }
         // print inner directories
         for (Directories innerDirectory : innerDirectories.values()) {
-            innerDirectory.printDirectory();
+            innerDirectory.print();
         }
-
+        System.out.println("}");
     }
 }

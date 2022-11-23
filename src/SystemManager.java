@@ -12,7 +12,7 @@ public class SystemManager {
 
     private static final String MSG_FILE_OR_DIRECTORY_DOES_NOT_EXIST = "File or directory does not exist";
     private static final String MSG_FILE_MUST_HAVE_PARENT_NAME = "File must have parent name";
-    
+
     // singleton class systemManager
     private static SystemManager systemManager = new SystemManager();
 
@@ -30,8 +30,7 @@ public class SystemManager {
         Files newFile = new Files(fileName, fileSize, new Date(System.currentTimeMillis()));
         if (parentDirectory != null) {
             parentDirectory.addFile(newFile);
-        }
-        else {
+        } else {
             System.out.println(MSG_FILE_MUST_HAVE_PARENT_NAME);
         }
     }
@@ -65,6 +64,8 @@ public class SystemManager {
     /* Displays all files & directories with their hierarchical structure (a file should display all file properties and a directory should display all directory properties) */
     public void showFileSystem() {
         // Find all directories that have no parent directory
+        // todo if optional add all root directories to list when adding them to the system
+        // this will make it easier to find all root directories and decrease runtime
         List<Directories> rootDirectories = new ArrayList<>();
         for (Directories directory : Directories.getAllDirectories().values()) {
             boolean isRootDirectory = true;
@@ -81,7 +82,7 @@ public class SystemManager {
 
         // print structure
         for (Directories rootDirectory : rootDirectories) {
-            rootDirectory.printDirectory();
+            rootDirectory.print();
         }
     }
 }
