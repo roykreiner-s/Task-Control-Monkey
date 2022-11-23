@@ -6,7 +6,11 @@ import java.util.Date;
 ● creation date (date type)
 */
 
+
 public class Files {
+
+    private static final String MSG_NAME_IS_TOO_LONG = "Name is too long";
+
 
     // private attributes
     private String name;
@@ -21,7 +25,7 @@ public class Files {
 
         // check name is longer then 32 characters
         if (name.length() > 32) {
-            System.out.println("Name is too long");
+            System.out.println(MSG_NAME_IS_TOO_LONG);
         } else {
             this.name = name;
         }
